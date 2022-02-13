@@ -1,7 +1,8 @@
-import backend from './http/backend';
-import dc from './bot/commands';
+import BackendService from './http/backend';
+import DurkaCommandService from './bot/commands';
+import DurkaEventHandlerService from './bot/event-handler';
 import express from 'express';
-import c from './const';
+import cmd from './const/req';
 import VkBot from 'node-vk-bot-api';
 
 require('dotenv').config();
@@ -11,18 +12,18 @@ const app = express();
 
 // Бот
 
-bot.command(c.Activation + c.Commands, async (res : VkBotContext) => {
-    await dc.getAllCommands(res);
+bot.command(cmd.Activation + cmd.Commands, async (res : VkBotContext) => {
+    await DurkaCommandService.getAllCommands(res);
 });
 
-bot.command(c.Activation + c.SendToNahui, async (res : VkBotContext) => {
-    await dc.sendToNahui(res);
+bot.command(cmd.Activation + cmd.SendToNahui, async (res : VkBotContext) => {
+    await DurkaCommandService.sendToNahui(res);
 });
 
 // Бэк
 
-app.post(c.Handshake, async (req, res) => {
-    await backend.handShake(req, res);
+app.post(cmd.Handshake, async (req, res) => {
+    await BackendService.handShake(req, res);
 });
 
 app.listen(80, () => {
