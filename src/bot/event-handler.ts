@@ -1,5 +1,5 @@
 class DurkaEventHandler {
-    async messageNew(bot:VkBot) {
+    async messageNewRecorder(bot:VkBot) {
         bot.event('message_new', res => {
             
         });
